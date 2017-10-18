@@ -20,10 +20,29 @@ class Cart
             echo \Response::ClientError(400, "No add");
         }
     }
-    public function deleteCart()
+
+    public function putCart()
     {
-        $id = 2;
-        $result = \Models\Cart::delCart($id);
+        $putParams = json_decode(file_get_contents("php://input"), true);
+        foreach($putParams as $book) {
+            if($book["checked"])
+
+            {
+                $result = \Models\Cart::delCart($book["c_id"]);
+            }
+            else
+            {
+                $result = \Models\Cart::updateCart($book["count"],$book["c_id"]);
+            }
+
+        }
+
     }
+
+        public function deleteCart()
+        {
+            //$id = 2;
+            //$result = \Models\Cart::delCart($id);
+        }
 
 }

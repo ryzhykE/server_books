@@ -72,16 +72,23 @@ class Cart extends Models
 
     }
 
-    public function delCart()
+    public function delCart($id)
     {
-        $id =  $_POST['checked'];
-        var_dump($id);
         $db = DB::getInstance();
         $sql = "DELETE FROM " . static::$table . " WHERE id IN ('$id') ";
         $result = $db->execute($sql);
         return $result;
 
     }
+
+    public function updateCart($count ,$id)
+    {
+        $sql = "UPDATE cart SET count = '$count' WHERE id = '$id'" ;
+        $db = DB::getInstance();
+        $result = $db->execute($sql);
+        return $result;
+    }
+
 
 
 

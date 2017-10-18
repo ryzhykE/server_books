@@ -44,10 +44,11 @@ class Client extends Models
     {
         $db = DB::getInstance();
         $data = $db->query(
-            'SELECT hash FROM ' . static::$table . ' WHERE id=:id',
+            'SELECT * , discount FROM ' . static::$table . ' WHERE id=:id',
             [':id' => $id]
         );
-        return $data[0]['hash'];
+        //return = ['discount'=>$data[0]['hash'], 'hash'=>$data[0]['hash'] , 'role'=> $role];
+        return $data[0];
         //?? false;
     }
 

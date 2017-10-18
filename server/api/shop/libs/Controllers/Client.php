@@ -8,8 +8,8 @@ class Client
 
     public function getClient($data = false,$type = false)
     {
-
         $result = \Models\Client::checkUsers($data[0]);
+        $result = \Response::typeData($result,$type);
         echo $result;
     }
 
