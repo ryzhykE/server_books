@@ -39,10 +39,10 @@ class Cart
 
     }
 
-        public function deleteCart()
+        public function deleteCart($data)
         {
-            //$id = 2;
-            //$result = \Models\Cart::delCart($id);
+            $id = $data[0];
+            $result = \Models\Cart::delCart($id);
         }
 
 }

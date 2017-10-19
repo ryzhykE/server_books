@@ -11,6 +11,8 @@ namespace Controllers;
 
 class GenreBook
 {
+
+
     public function getGenreBook ($data = false, $type = false)
     {
         $results = \Models\Genre::findBooktoGenre($data[0]);

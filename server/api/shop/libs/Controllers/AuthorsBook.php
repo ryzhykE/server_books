@@ -9,7 +9,7 @@ class AuthorsBook
         $result = \Models\Authors::findBooktoAuthor($data[0]);
         $result = \Response::filterBooks($result);
         $result = \Response::typeData($result,$type);
-        print_r($result);
+        echo $result;
     }
 
 }
