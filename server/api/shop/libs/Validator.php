@@ -2,7 +2,7 @@
 
 class Validator
 {
-
+    protected $data;
     protected function loginValid($data)
     {
         $pattern = '/^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$/';
@@ -29,17 +29,13 @@ class Validator
         }
     }
 
-    protected function emailValid($data)
+    protected function clearData($data)
     {
-        $pattern = '/[a-Z0-9\._%-]+@[a-Z0-9\.-]+\.[a-Z]{2,4}/';
-        if(preg_match($pattern, $data))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        $this->value = trim($data);
+        $this->value = stripslashes($data);
+        $this->value = strip_tags($data);
+        $this->value = htmlspecialchars($data);
+        return $this->value;
     }
 
 }

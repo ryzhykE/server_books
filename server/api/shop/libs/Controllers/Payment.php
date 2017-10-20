@@ -7,9 +7,17 @@ class Payment
 {
     public function getPayment ($data = false , $type = false)
     {
-        $genre = \Models\Payment::findAll();
-        $results = \Response::typeData($genre,$type);
-        echo $results;
+        try
+        {
+            $genre = \Models\Payment::findAll();
+            $result = \Response::typeData($genre,$type);
+            return \Response::ServerSuccess(200, $result);
+        }
+        catch(\Exception $exception)
+        {
+            return \Response::ServerSuccess(500, $exception->getMessage());
+        }
+
     }
 
 }

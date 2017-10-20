@@ -15,10 +15,18 @@ class GenreBook
 
     public function getGenreBook ($data = false, $type = false)
     {
-        $results = \Models\Genre::findBooktoGenre($data[0]);
-        $results = \Response::filterBooks($results);
-        $results = \Response::typeData($results,$type);
-        print_r($results);
+        try
+        {
+            $result = \Models\Genre::findBooktoGenre($data[0]);
+            $result = \Response::filterBooks($result);
+            $result = \Response::typeData($result,$type);
+            return \Response::ServerSuccess(200, $result);
+        }
+        catch(\Exception $exception)
+        {
+            return \Response::ServerSuccess(500, $exception->getMessage());
+        }
+
     }
 
 

@@ -7,9 +7,16 @@ class Genre
 {
     public function getGenre ($data = false , $type = false)
     {
-        $genre = \Models\Genre::findAll();
-        $results = \Response::typeData($genre,$type);
-        echo $results;
+        try
+        {
+            $genre = \Models\Genre::findAll();
+            $result = \Response::typeData($genre,$type);
+            return \Response::ServerSuccess(200, $result);
+        }
+        catch(\Exception $exception)
+        {
+            return \Response::ServerSuccess(500, $exception->getMessage());
+        }
     }
 
 }

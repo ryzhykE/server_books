@@ -5,19 +5,19 @@ class Response
     public static function ServerSuccess( $type, $message = null, $header = null) {
         $responseHeader = self::ServerOKType();
         header($responseHeader[$type]);
-        return $message;
+        echo $message;
     }
 
     public static function ServerError( $errorType, $message ) {
         $responseHeader = self::ServerErrorType();
         header($responseHeader[$errorType]);
-        return $message;
+        echo $message;
     }
 
     public static function ClientError( $errorType, $message ) {
         $responseHeader = self::ClientErrorType();
         header($responseHeader[$errorType]);
-        return $message;
+        echo $message;
     }
 
     private static function ClientErrorType() {

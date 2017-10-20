@@ -89,5 +89,13 @@ class Cart extends Models
         return $result;
     }
 
+    public function deleteCart($id)
+    {
+        $db = DB::getInstance();
+        $sql = "DELETE FROM " . static::$table . " WHERE id IN ('$id') ";
+        $result = $db->execute($sql);
+        return $result;
+    }
+
 
 }
