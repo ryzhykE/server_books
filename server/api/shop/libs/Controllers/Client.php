@@ -5,7 +5,7 @@ namespace Controllers;
 
 class Client extends \Validator
 {
-    public $valid;
+    protected $valid;
 
     public function __construct()
     {
@@ -70,8 +70,6 @@ class Client extends \Validator
         {
             return \Response::ServerSuccess(500, $exception->getMessage());
         }
-
-
 
     }
 

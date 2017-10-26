@@ -26,4 +26,28 @@ class Models
 		//?? false;
     }
 
+    public static function addAuthor($name)
+    {
+        $sql = "INSERT INTO " . static::$table . " (name) VALUES ('$name')";
+        $db = DB::getInstance();
+        $result = $db->execute($sql);
+        return $result;
+    }
+
+    public static function editAuthor($id,$name)
+    {
+        $sql = "UPDATE " . static::$table . " SET name = '$name' WHERE id = '$id'" ;
+        $db = DB::getInstance();
+        $result = $db->execute($sql);
+        return $result;
+    }
+
+    public static function delAuthor($id)
+    {
+        $sql = "DELETE FROM " . static::$table . " WHERE id = '$id'" ;
+        $db = DB::getInstance();
+        $result = $db->execute($sql);
+        return $result;
+    }
+
 }

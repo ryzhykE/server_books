@@ -1,5 +1,5 @@
 RewriteEngine On
-#RewriteBase /~user12/rest_book/server/api/cars/
+#RewriteBase /~user12/rest_book/server/api/shop/
 RewriteBase /user12/rest_book/server/api/shop/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

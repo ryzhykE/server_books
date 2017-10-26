@@ -24,4 +24,13 @@ class Genre extends Models
         );
         return $data;
     }
+
+    public function addBookToGenre($id_book, $id_genre)
+    {
+        $sql = "INSERT INTO book_to_genre (id_book, id_genre)
+             VALUES ('$id_book', '$id_genre')";
+        $db = DB::getInstance();
+        $result = $db->execute($sql);
+        return $result;
+    }
 }

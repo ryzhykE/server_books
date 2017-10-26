@@ -19,12 +19,13 @@ class Books extends Models
     {
         $db = DB::getInstance();
         $data = $db->query(
-            'select b.id, b.title, b.price, b.description, b.discount, b.img, a.id as a_id, a.name as a_name , g.id as g_id, g.name as
-             g_name from books b
-             inner join book_to_author ba on b.id = ba.id_book
-             inner join authors a on ba.id_author = a.id
-             inner join book_to_genre bg on b.id = bg.id_book
-             inner join genre g on bg.id_genre = g.id AND active = "yes"
+            'SELECT b.id, b.title, b.price, b.description, b.discount, b.img, a.id AS a_id, a.name AS a_name , g.id AS g_id, g.name AS g_name
+             FROM books b
+             INNER JOIN book_to_author ba ON b.id = ba.id_book
+             INNER JOIN authors a ON ba.id_author = a.id
+             INNER JOIN book_to_genre bg ON b.id = bg.id_book
+             INNER JOIN genre g ON bg.id_genre = g.id
+             AND active = "yes"
              ORDER BY b.id ',
             []
         );
@@ -35,15 +36,68 @@ class Books extends Models
     {
         $db = DB::getInstance();
         $data = $db->query(
-            'select b.id, b.title, b.price, b.description, b.discount, b.img, a.id as a_id, a.name as a_name , g.id as g_id, g.name as
-             g_name from books b
-             inner join book_to_author ba on b.id = ba.id_book
-             inner join authors a on ba.id_author = a.id
-             inner join book_to_genre bg on b.id = bg.id_book
-             inner join genre g on bg.id_genre = g.id  AND active = "yes" WHERE b.id = :id
+            'SELECT b.id, b.title, b.price, b.description, b.discount, b.img, a.id AS a_id, a.name AS a_name , g.id AS g_id, g.name AS g_name
+             FROM books b
+             INNER JOIN book_to_author ba ON b.id = ba.id_book
+             INNER JOIN authors a ON ba.id_author = a.id
+             INNER JOIN book_to_genre bg ON b.id = bg.id_book
+             INNER JOIN genre g ON bg.id_genre = g.id
+             AND active = "yes"
+             WHERE b.id = :id
               ',
             [':id' => $id]
         );
         return $data;
+    }
+
+    public function findBookAdmin()
+    {
+        $db = DB::getInstance();
+        $data = $db->query(
+            'SELECT b.id, b.title, b.price, b.description, b.discount, b.img, a.id AS a_id, a.name AS a_name , g.id AS g_id, g.name AS g_name
+             FROM books b
+             INNER JOIN book_to_author ba ON b.id = ba.id_book
+             INNER JOIN authors a ON ba.id_author = a.id
+             INNER JOIN book_to_genre bg ON b.id = bg.id_book
+             INNER JOIN genre g ON bg.id_genre = g.id
+             ORDER BY b.id ',
+            []
+        );
+        return $data;
+    }
+
+    public function addBook($title, $price, $description, $discount, $active)
+    {
+        $sql = "INSERT INTO books (title, price, description, discount, active)
+             VALUES ('$title', '$price', '$description', '$discount', '$active')";
+        $db = DB::getInstance();
+        $db->execute($sql);
+        $result['id_book'] = $db->lastInsertId();
+        return $result;
+    }
+    public static function findByidBooksAdmin($id)
+    {
+        $db = DB::getInstance();
+        $data = $db->query(
+            'SELECT b.id, b.title, b.price, b.description, b.discount, b.img, b.active, a.id AS a_id, a.name AS a_name , g.id AS g_id, g.name AS g_name
+             FROM books b
+             INNER JOIN book_to_author ba ON b.id = ba.id_book
+             INNER JOIN authors a ON ba.id_author = a.id
+             INNER JOIN book_to_genre bg ON b.id = bg.id_book
+             INNER JOIN genre g ON bg.id_genre = g.id
+             WHERE b.id = :id
+              ',
+            [':id' => $id]
+        );
+        return $data;
+    }
+
+    public function updateBook($title,$price,$description,$discount,$active,$id)
+    {
+        $sql = "UPDATE  " . static::$table ." SET title= '$title', price= '$price', description = '$description',
+           discount = '$discount', active = '$active'  WHERE id='$id' ";
+        $db = DB::getInstance();
+        $result = $db->execute($sql);
+        return $result;
     }
 }

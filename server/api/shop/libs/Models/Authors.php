@@ -12,13 +12,6 @@ class Authors extends Models
     public static function findBooktoAuthor($id)
     {
         $db = DB::getInstance();
-        /**
-         * SELECT books.id , books.title, books.price, books.description, books.img
-        FROM book_to_author
-        JOIN books ON books.id = book_to_author.id_book
-        JOIN genre ON genre.id = book_to_author.id_author
-        WHERE genre.id = :id AND books.active = "yes"
-         */
         $data = $db->query(
             'select b.id, b.title, b.price, b.description, b.discount, b.img, a.id as a_id, a.name as a_name , g.id as g_id, g.name as
              g_name from books b
@@ -31,4 +24,14 @@ class Authors extends Models
         );
         return $data;
     }
+
+    public function addBookToAuthor($id_book, $id_author)
+    {
+        $sql = "INSERT INTO book_to_author (id_book, id_author)
+             VALUES ('$id_book', '$id_author')";
+        $db = DB::getInstance();
+        $result = $db->execute($sql);
+        return $result;
+    }
+
 }

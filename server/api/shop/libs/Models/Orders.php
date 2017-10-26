@@ -52,5 +52,28 @@ class Orders extends Models
         $result['id_order'] = $db->lastInsertId();
         return $result;
     }
+    public function getAllOrder()
+    {
+        $db = DB::getInstance();
+        $data = $db->query(
+            "SELECT orders.id, orders.status,orders.date_time,orders.total_price, orders.total_discount,
+             client.login, client.id as clien_id, client.last_name, client.first_name, client.discount , payment.name
+             FROM orders
+             INNER JOIN payment ON orders.id_payment = payment.id
+             INNER JOIN client ON orders.id_client = client.id
+            ORDER BY orders.date_time DESC",
+            []
+        );
+        return $data;
+    }
+
+    public function updateOrder($id,$status)
+    {
+        $sql = "UPDATE orders SET status = '$status' WHERE id = '$id' " ;
+        $db = DB::getInstance();
+        $result = $db->execute($sql);
+        return $result;
+    }
+
 
 }

@@ -79,4 +79,41 @@ class Client extends Models
 
     }
 
+    public static function authUserAdm($first_name,$last_name,$login,$pass,$discount)
+    {
+        if (filter_var($discount, FILTER_VALIDATE_INT) || filter_var($discount,FILTER_VALIDATE_FLOAT))
+        {
+            if ((int)$discount< 0 || (int)$discount > 99)
+            {
+                return ERROR_INT;
+           }
+            $pass = md5(md5(trim($pass)));
+            $sql = "INSERT INTO  " . static::$table ." ( first_name, last_name, login, pass, discount)
+                VALUES ('$first_name', '$last_name', '$login', '$pass', $discount)";
+            $db = DB::getInstance();
+            $result = $db->execute($sql);
+            return $result;
+        }
+    }
+
+    public static function updateUserAdm($id,$first_name,$last_name,$login,$pass,$discount,$role,$active)
+    {
+        if (filter_var($discount, FILTER_VALIDATE_INT) || filter_var($discount,FILTER_VALIDATE_FLOAT))
+        {
+            if ((int)$discount< 0 || (int)$discount > 99)
+            {
+                return ERROR_INT;
+            }
+            $pass = md5(md5(trim($pass)));
+            $sql = "UPDATE  " . static::$table ." SET first_name='$first_name', last_name='$last_name', login = '$login',
+            pass = '$pass', discount = $discount, role = '$role', active = '$active' WHERE id='$id' ";
+            $db = DB::getInstance();
+            $result = $db->execute($sql);
+            return $result;
+        }
+        //UPDATE client SET first_name='name', last_name='lasrt', login = 'login',
+        // pass = 'psaaa', discount = 8,
+        // role = 'user', active = 'yes' WHERE id=49
+    }
+
 }

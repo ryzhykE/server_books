@@ -9,9 +9,14 @@
 namespace Controllers;
 
 
-class GenreBook
+class GenreBook extends \Validator
 {
+    protected $valid;
 
+    public function __construct()
+    {
+        $this->valid = new \Validator();
+    }
 
     public function getGenreBook ($data = false, $type = false)
     {
@@ -26,7 +31,21 @@ class GenreBook
         {
             return \Response::ServerSuccess(500, $exception->getMessage());
         }
+    }
 
+    public function postGenreBook($data = false,$type = false)
+    {
+        try
+        {
+            $id_book = $this->valid->clearData($_POST['id_book']);
+            $id_genre = $this->valid->clearData($_POST['id_genre']);
+            $result = \Models\Genre::addBookToGenre($id_book, $id_genre);
+            return \Response::ServerSuccess(200, 'OK');
+        }
+        catch(\Exception $exception)
+        {
+            return \Response::ServerSuccess(500, $exception->getMessage());
+        }
     }
 
 
