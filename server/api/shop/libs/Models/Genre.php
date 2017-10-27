@@ -27,8 +27,17 @@ class Genre extends Models
 
     public function addBookToGenre($id_book, $id_genre)
     {
+
         $sql = "INSERT INTO book_to_genre (id_book, id_genre)
              VALUES ('$id_book', '$id_genre')";
+        $db = DB::getInstance();
+        $result = $db->execute($sql);
+        return $result;
+    }
+
+    public function dellBookToGenre($id_book)
+    {
+        $sql = "DELETE FROM `book_to_genre` WHERE id_book = '$id_book'";
         $db = DB::getInstance();
         $result = $db->execute($sql);
         return $result;

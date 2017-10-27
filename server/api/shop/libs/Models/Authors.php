@@ -26,12 +26,28 @@ class Authors extends Models
     }
 
     public function addBookToAuthor($id_book, $id_author)
-    {
+   {
+
         $sql = "INSERT INTO book_to_author (id_book, id_author)
              VALUES ('$id_book', '$id_author')";
         $db = DB::getInstance();
         $result = $db->execute($sql);
         return $result;
+    }
+
+    public function dellBookToAuthor($id_book)
+    {
+        $sql = "DELETE FROM `book_to_author` WHERE id_book = '$id_book'";
+        $db = DB::getInstance();
+        $result = $db->execute($sql);
+        return $result;
+    }
+
+
+
+    public static function testAuthor()
+    {
+        return true;
     }
 
 }

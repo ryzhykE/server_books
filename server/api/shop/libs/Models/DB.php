@@ -20,11 +20,11 @@ class DB
     public function query( $sql,$data = [])
 	//public function query(string $sql, array $data = [])
     {
+
         $sth = $this->dbh->prepare($sql);
         $result = $sth->execute($data);
         if (false === $result) {
             throw new \Exception(NO_CONNECT);
-            die;
         }
         return $sth->fetchAll(\PDO::FETCH_ASSOC);
     }

@@ -2,7 +2,7 @@
 
 require_once 'autoloader.php';
 require_once 'config.php';
-
+spl_autoload_register('autoload');
 try
 {
     header("Access-Control-Allow-Origin:*");
@@ -13,7 +13,7 @@ try
 }
 catch(Exception $e)
 {
-    echo Response::serverError( 500, $e->getMessage());
+    return \Response::serverError( 500, $e->getMessage());
 }
 
 

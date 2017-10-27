@@ -10,4 +10,6 @@ define('DB','aaaas');
 define('NO_CONNECT','No connect with DB ');
 define('NO_DATE', 'No date parametrs');
 define('ERROR_INT','No integer');
+define('ERROR_DISC','error add discount');
+define('ERROR_ADD','error add books');
 

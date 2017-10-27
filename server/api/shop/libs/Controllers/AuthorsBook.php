@@ -41,4 +41,35 @@ class AuthorsBook extends \Validator
         }
     }
 
+    public function putAuthorsBook($data = false,$type = false)
+    {
+        try
+        {
+            $putParams = json_decode(file_get_contents("php://input"), true);
+            $id_book = $this->valid->clearData($putParams['id_book']);
+            $id_author = $this->valid->clearData($putParams['id_author']);
+            $result = \Models\Authors::addBookToAuthor($id_book, $id_author);
+            return \Response::ServerSuccess(200, 'OK');
+
+        }
+        catch(\Exception $exception)
+        {
+            return \Response::ServerSuccess(500, $exception->getMessage());
+        }
+    }
+
+    public function deleteAuthorsBook($data)
+    {
+        try
+        {
+        $id= $this->valid->clearData($data[0]);
+        $result = \Models\Authors::dellBookToAuthor($id);
+        return \Response::ServerSuccess(200, 'OK');
+        }
+        catch(\Exception $exception)
+        {
+            return \Response::ServerSuccess(500, $exception->getMessage());
+        }
+    }
+
 }

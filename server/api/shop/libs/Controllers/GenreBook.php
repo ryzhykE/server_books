@@ -48,5 +48,36 @@ class GenreBook extends \Validator
         }
     }
 
+    public function putGenreBook($data = false,$type = false)
+    {
+        try
+        {
+            $putParams = json_decode(file_get_contents("php://input"), true);
+            $id_book = $this->valid->clearData($putParams['id_book']);
+            $id_genre = $this->valid->clearData($putParams['id_genre']);
+            $result = \Models\Genre::addBookToGenre($id_book, $id_genre);
+            return \Response::ServerSuccess(200, 'OK');
+
+        }
+        catch(\Exception $exception)
+        {
+            return \Response::ServerSuccess(500, $exception->getMessage());
+        }
+    }
+
+    public function deleteGenreBook($data)
+    {
+        try
+        {
+            $id= $this->valid->clearData($data[0]);
+            $result = \Models\Genre::dellBookToGenre($id);
+            return \Response::ServerSuccess(200, 'OK');
+        }
+        catch(\Exception $exception)
+        {
+            return \Response::ServerSuccess(500, $exception->getMessage());
+        }
+    }
+
 
 }
