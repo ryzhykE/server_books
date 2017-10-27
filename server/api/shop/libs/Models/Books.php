@@ -69,7 +69,18 @@ class Books extends Models
     public function addBook($title, $price, $description, $discount, $active)
     {
 
-
+        if (filter_var($price, FILTER_VALIDATE_INT) || filter_var($price,FILTER_VALIDATE_FLOAT)
+            || $price === '0' || $price === '0.00')
+        {
+            if ((int)$price < 0)
+            {
+                return ERROR_PRICE;
+            }
+        }
+        else
+        {
+            return ERROR_PRICE;
+        }
         if (filter_var( $discount, FILTER_VALIDATE_INT) || filter_var( $discount,FILTER_VALIDATE_FLOAT)
             ||  $discount == '0' ||  $discount == '0.00')
         {
@@ -113,10 +124,38 @@ class Books extends Models
 
     public function updateBook($title,$price,$description,$discount,$active,$id)
     {
-        $sql = "UPDATE  " . static::$table ." SET title= '$title', price= '$price', description = '$description',
+        if (filter_var($price, FILTER_VALIDATE_INT) || filter_var($price,FILTER_VALIDATE_FLOAT)
+            || $price === '0' || $price === '0.00')
+        {
+            if ((int)$price < 0)
+            {
+                return ERROR_PRICE;
+            }
+        }
+        else
+        {
+            return ERROR_PRICE;
+        }
+        if (filter_var( $discount, FILTER_VALIDATE_INT) || filter_var( $discount,FILTER_VALIDATE_FLOAT)
+            ||  $discount == '0' ||  $discount == '0.00')
+        {
+            if ((int) $discount < 0 || (int) $discount > 99)
+            {
+                return ERROR_DISC;
+            }
+            $sql = "UPDATE  " . static::$table ." SET title= '$title', price= '$price', description = '$description',
            discount = '$discount', active = '$active'  WHERE id='$id' ";
-        $db = DB::getInstance();
-        $result = $db->execute($sql);
-        return $result;
+            $db = DB::getInstance();
+            $result = $db->execute($sql);
+            return $result;
+        }
+        else
+        {
+            return ERROR_EDD;
+        }
+
+
+
+
     }
 }

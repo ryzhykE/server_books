@@ -12,4 +12,6 @@ define('NO_DATE', 'No date parametrs');
 define('ERROR_INT','No integer');
 define('ERROR_DISC','error add discount');
 define('ERROR_ADD','error add books');
+define('ERROR_PRICE','error add price');
+define('ERROR_EDD','error update books');
 
